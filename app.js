@@ -4,6 +4,8 @@ export default function (express, bodyParser, createReadStream, crypto, http) {
   app.use((req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.set('Access-Control-Allow-Methods', 'GET,POST,PUT,PATCH,OPTIONS,DELETE');
+    res.set('Access-Control-Allow-Headers', req.get('Access-Control-Request-Headers') || '*');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
     next();
   });
 
